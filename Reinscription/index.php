@@ -3,11 +3,41 @@
 if(!($_POST['name'] == "")){
     $bdd = new PDO("mysql:host=localhost;dbname=project", 'root', 'root');
     
-    $add=$bdd->prepare('INSERT INTO projet(Nom, Prenom, Mail, Forfait, DatePaye)
-    VALUES(?, ?, ?, ?, NOW())');
-    $add->execute(array(htmlspecialchars($_POST['name']), htmlspecialchars($_POST['surname']), htmlspecialchars($_POST['email']), htmlspecialchars($_POST['forfait']), NOW()));
-    // $adddate=$bdd->query("INSERT INTO projet(DatePaye) VALUES(NOW()) WHERE ID=111");
-    // $adddate->execute(array(NOW()));
+    if($_POST['forfait'] == "1 mois"){
+        $add=$bdd->prepare("INSERT INTO projet(Nom, Prenom, Mail, Forfait, DatePaye, DateFin)
+        VALUES(?, ?, ?, ?, NOW(), DATE_ADD(DatePaye, INTERVAL 30 DAY))");
+        $add->execute(array(htmlspecialchars($_POST['name']), htmlspecialchars($_POST['surname']), htmlspecialchars($_POST['email']), htmlspecialchars($_POST['forfait'])));
+    }
+
+    else if($_POST['forfait'] == "2 mois"){
+        $add=$bdd->prepare("INSERT INTO projet(Nom, Prenom, Mail, Forfait, DatePaye, DateFin)
+        VALUES(?, ?, ?, ?, NOW(), DATE_ADD(DatePaye, INTERVAL 60 DAY))");
+        $add->execute(array(htmlspecialchars($_POST['name']), htmlspecialchars($_POST['surname']), htmlspecialchars($_POST['email']), htmlspecialchars($_POST['forfait'])));
+    }
+
+    else if($_POST['forfait'] == "3 mois"){
+        $add=$bdd->prepare("INSERT INTO projet(Nom, Prenom, Mail, Forfait, DatePaye, DateFin)
+        VALUES(?, ?, ?, ?, NOW(), DATE_ADD(DatePaye, INTERVAL 90 DAY))");
+        $add->execute(array(htmlspecialchars($_POST['name']), htmlspecialchars($_POST['surname']), htmlspecialchars($_POST['email']), htmlspecialchars($_POST['forfait'])));
+    }
+
+    else if($_POST['forfait'] == "4 mois"){
+        $add=$bdd->prepare("INSERT INTO projet(Nom, Prenom, Mail, Forfait, DatePaye, DateFin)
+        VALUES(?, ?, ?, ?, NOW(), DATE_ADD(DatePaye, INTERVAL 120 DAY))");
+        $add->execute(array(htmlspecialchars($_POST['name']), htmlspecialchars($_POST['surname']), htmlspecialchars($_POST['email']), htmlspecialchars($_POST['forfait'])));
+    }
+
+    else if($_POST['forfait'] == "12 mois"){
+        $add=$bdd->prepare("INSERT INTO projet(Nom, Prenom, Mail, Forfait, DatePaye, DateFin)
+        VALUES(?, ?, ?, ?, NOW(), DATE_ADD(DatePaye, INTERVAL 365 DAY))");
+        $add->execute(array(htmlspecialchars($_POST['name']), htmlspecialchars($_POST['surname']), htmlspecialchars($_POST['email']), htmlspecialchars($_POST['forfait'])));
+    }
+
+    else{
+        echo 'Erreur Vous avez changé un syntaxe dans le code source de cette page';
+    }
+    
+    
 }
 
 
@@ -47,14 +77,6 @@ if(!($_POST['name'] == "")){
                 Email:<br /> <input type="text" name="email" id="email" required />
             </label><br />
 
-            <!-- <label for="date">
-                Date Paye:<br /> <input type="datetime-local" name="date" id="date" required />
-            </label><br /> -->
-
-            <!-- <label for="date">
-                Date De Fin:<br /> <input type="datetime-local" name="date" id="date" required />
-            </label><br /> -->
-
             <label for="forfait">
                 Forfait:<br />
                 <select name="forfait" id="forfait">
@@ -69,9 +91,11 @@ if(!($_POST['name'] == "")){
             <label for="submit">
                 <br /><input type="submit" name="submit" value="Confirmer" id="submit"/>
             </label><br />
-        </form>
-        <br /><br /><br /><br />
+            <br /><br />
+            <br />
         <a href="../Confirmation/index.php">Liste des abonnés</a>
+        </form>
+        
     </section>
 
     <footer>

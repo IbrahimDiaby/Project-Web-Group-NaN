@@ -33,12 +33,14 @@
         while($info = $liste->fetch()){
 ?>
             <p>L'abonnement de <strong><?php echo $info['Nom'] ?>  <?php echo $info['Prenom'] ?></strong>
-            expire le <strong><?php echo $info['DateFin'] ?></strong></p>
+            inscrit le <strong><?php echo $info['DatePaye'] ?></strong> expire le <strong><?php echo $info['DateFin'] ?></strong></p>
 
             
 <?php
         }
 ?>
+<br /><br />
+        <a href="../Inscription/index.php">Accueil</a>
     </section>
 
     <footer>
