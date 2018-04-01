@@ -1,3 +1,18 @@
+<?php 
+
+if(!($_POST['name'] == "")){
+    $bdd = new PDO("mysql:host=localhost;dbname=project", 'root', 'root');
+    
+    $add=$bdd->prepare('INSERT INTO projet(Nom, Prenom, Mail, Forfait, DatePaye)
+    VALUES(?, ?, ?, ?, NOW())');
+    $add->execute(array(htmlspecialchars($_POST['name']), htmlspecialchars($_POST['surname']), htmlspecialchars($_POST['email']), htmlspecialchars($_POST['forfait']), NOW()));
+    // $adddate=$bdd->query("INSERT INTO projet(DatePaye) VALUES(NOW()) WHERE ID=111");
+    // $adddate->execute(array(NOW()));
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -32,9 +47,9 @@
                 Email:<br /> <input type="text" name="email" id="email" required />
             </label><br />
 
-            <label for="date">
+            <!-- <label for="date">
                 Date Paye:<br /> <input type="datetime-local" name="date" id="date" required />
-            </label><br />
+            </label><br /> -->
 
             <!-- <label for="date">
                 Date De Fin:<br /> <input type="datetime-local" name="date" id="date" required />
@@ -64,16 +79,3 @@
     </footer>
 </body>
 </html>
-
-<?php 
-
-if(!($_POST['name'] == "")){
-    $bdd = new PDO("mysql:host=localhost;dbname=project", 'root', 'root');
-    
-    $add=$bdd->prepare('INSERT INTO projet(Nom, Prenom, Mail, Forfait, DatePaye)
-    VALUES(?, ?, ?, ?, ?)');
-    
-    $add->execute(array(htmlspecialchars($_POST['name']), htmlspecialchars($_POST['surname']), htmlspecialchars($_POST['email']), htmlspecialchars($_POST['forfait']), htmlspecialchars($_POST['date'])));
-}
-
-?>

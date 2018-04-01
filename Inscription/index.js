@@ -1,5 +1,5 @@
 $(function(){
-    $("div#ok").hide();
+    // $("div#ok").hide();
     $("submit").click(function(){
         $("div#ok").show();
     })

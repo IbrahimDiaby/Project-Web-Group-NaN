@@ -33,8 +33,9 @@
         while($info = $liste->fetch()){
 ?>
             <p>L'abonnement de <strong><?php echo $info['Nom'] ?>  <?php echo $info['Prenom'] ?></strong>
-            expire le <strong><?php echo $info['DateFin'] ?></strong>
-            </p>
+            expire le <strong><?php echo $info['DateFin'] ?></strong></p>
+
+            
 <?php
         }
 ?>
